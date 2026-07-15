@@ -1,0 +1,18 @@
+GEDANKEN & NEWS PFLEGEN – OHNE HTML
+
+1. Öffne redaktion.html im Browser (Doppelklick auf deinem Mac oder online unter /redaktion.html).
+2. Klicke „Neuer Gedanke“ oder „Neue News“.
+3. Trage Text, Datum, Kategorie und Bildpfad ein.
+4. Status erst auf „Veröffentlicht“ setzen, wenn der Eintrag sichtbar sein soll.
+5. Klicke „Eintrag speichern“.
+6. Klicke „content.js herunterladen“.
+7. Lade die neue content.js über GitHub hoch und ersetze die alte Datei.
+8. Für ein neues Bild: Bilddatei zusätzlich in GitHub in den Ordner images hochladen. Im Redaktionsfeld als Pfad z. B. images/mein-foto.jpg eintragen.
+
+ARCHIV
+Das Archiv entsteht automatisch aus dem Datum. Du musst keine Archivseite pflegen. Die Übersicht gruppiert Beiträge nach Jahren. Suche und Themenfilter funktionieren ebenfalls automatisch.
+
+WICHTIG
+- redaktion.html verändert die Live-Seite nicht direkt. Erst der Upload der heruntergeladenen content.js veröffentlicht die Änderung.
+- Entwürfe bleiben unsichtbar.
+- Dateinamen von Bildern am besten klein, ohne Leerzeichen und Umlaute. Beispiel: bilder/mission-klarheit.jpg

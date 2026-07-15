@@ -523,6 +523,11 @@ footer a:hover { color: var(--amber); }
 .nav-brand{display:flex;align-items:center;gap:.55rem}.nav-brand img{width:28px;height:28px;object-fit:contain}.menu-toggle{display:none;width:42px;height:42px;border:1px solid var(--line);background:transparent;cursor:pointer}.menu-toggle span{display:block;width:20px;height:2px;background:var(--ink);margin:4px auto}.about-portrait{margin:2.5rem 0 3rem;border:1px solid var(--line);overflow:hidden}.about-portrait img{width:100%;height:auto}.final-book-cover{width:min(340px,74vw);margin:0 auto 3rem;box-shadow:0 24px 60px rgba(0,0,0,.22)}
 .form-consent{display:flex;gap:.65rem;align-items:flex-start;font-family:var(--sans);font-size:.76rem;color:var(--ink-mut);line-height:1.5;margin-top:.9rem;text-align:left}.form-consent input{margin-top:.25rem}.form-consent a{color:var(--amber);border-bottom:1px solid var(--amber)}
 .contact-layout{display:grid;grid-template-columns:.85fr 1.15fr;gap:5rem;align-items:start}.contact-mail{margin-top:2rem;font-family:var(--mono);font-size:.82rem}.contact-mail a{color:var(--amber)}.contact-form{display:grid;gap:1rem}.contact-form>label:not(.form-consent){display:grid;gap:.35rem;font-family:var(--mono);font-size:.72rem;letter-spacing:.05em;text-transform:uppercase}.contact-form input,.contact-form textarea{width:100%;border:1px solid var(--line);background:var(--paper-hi);padding:.85rem;font-family:var(--sans);font-size:1rem;color:var(--ink);text-transform:none;letter-spacing:0}.contact-form textarea{resize:vertical}.contact-form .btn-primary{border:0;cursor:pointer;justify-self:start}
+
+/* ─── JOURNAL HOME TEASER ───────────────────────────── */
+.journal-home-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;margin-top:3rem}.journal-home-card{background:var(--paper-hi);border:1px solid var(--line);padding:2rem;transition:transform .25s,border-color .25s}.journal-home-card:hover{transform:translateY(-3px);border-color:var(--amber)}.journal-home-card h3{font-family:var(--serif);font-size:1.55rem;font-weight:500;margin:.5rem 0}.journal-home-card p{color:var(--ink-mut);margin-bottom:1.25rem}
+@media(max-width:680px){.journal-home-grid{grid-template-columns:1fr}}
+
 .footer-brand{display:flex;justify-content:center;align-items:center;gap:.55rem}.footer-brand img{width:34px;height:34px}.cookie-settings{display:block;margin:1rem auto 0;border:0;background:transparent;color:var(--paper);font-family:var(--mono);font-size:.7rem;text-decoration:underline;cursor:pointer}.cookie-banner{position:fixed;z-index:250;left:1rem;right:1rem;bottom:1rem;display:none;align-items:center;justify-content:space-between;gap:1.5rem;max-width:960px;margin:0 auto;background:var(--night);color:var(--paper);border:1px solid var(--night-line);padding:1rem 1.15rem;box-shadow:0 14px 45px rgba(0,0,0,.25)}.cookie-copy strong{font-family:var(--mono);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase}.cookie-copy p{font-size:.8rem;color:var(--night-mut);line-height:1.45;margin-top:.2rem}.cookie-actions{display:flex;gap:.55rem;flex-shrink:0}.cookie-actions button{font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;padding:.65rem .85rem;border:1px solid var(--night-line);background:transparent;color:var(--paper);cursor:pointer}.cookie-actions #cookieAccept{background:var(--amber);border-color:var(--amber)}
 @media(max-width:680px){nav{padding:.8rem 1rem}.menu-toggle{display:block}.nav-right{position:absolute;top:100%;left:0;right:0;display:none;flex-direction:column;align-items:stretch;gap:0;background:var(--paper-hi);border-bottom:1px solid var(--line);padding:.5rem 1.2rem 1rem}.nav-right.open{display:flex}.nav-link,.nav-cta{display:block!important;padding:.9rem 0;border-bottom:1px solid var(--line)}.contact-layout{grid-template-columns:1fr;gap:2.5rem}.cookie-banner{left:.5rem;right:.5rem;bottom:.5rem;align-items:stretch;flex-direction:column}.cookie-actions{width:100%}.cookie-actions button{flex:1}}
 </style>
@@ -547,6 +552,8 @@ footer a:hover { color: var(--amber); }
 
 
 <a class="nav-link" href="#angebot">Arbeiten mit mir</a>
+<a class="nav-link" href="gedanken.html">Gedanken</a>
+<a class="nav-link" href="news.html">News</a>
 <a class="nav-cta" href="#buch">Zum Buch</a>
 <a class="nav-link" href="#kontakt">Kontakt</a></div>
 </nav>
@@ -1000,6 +1007,18 @@ footer a:hover { color: var(--amber); }
 <label class="form-consent"><input required="" type="checkbox"/> <span>Ich möchte zum Erscheinen informiert werden und habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen.</span></label>
 <p class="news-hint">Kein Newsletter-Lärm. Eine Nachricht zum Launch und gelegentlich ein klarer Gedanke.</p>
 </form>
+</div>
+</section>
+<!-- ─── GEDANKEN & NEWS ───────────────────────────────── -->
+<section class="section section--alt" id="journal-teaser">
+<div class="container">
+<span class="eyebrow reveal">Gedanken &amp; Neuigkeiten</span>
+<h2 class="section-h2 reveal rd1">Lesen, was bleibt.<br/>Erfahren, was kommt.</h2>
+<p class="section-lead reveal rd1">Im Journal schreibe ich über Klarheit, Freiheit und ein bewusstes Leben. Im News-Bereich stehen Termine, Lesungen, Vorträge und alles rund um das Buch.</p>
+<div class="journal-home-grid reveal rd2">
+<a class="journal-home-card" href="gedanken.html"><span class="pc-nr">Journal</span><h3>Gedanken</h3><p>Essays, Beobachtungen und klare Gedanken. Mit Bildern, Archiv und Suche.</p><span class="feed-more">Zum Journal →</span></a>
+<a class="journal-home-card" href="news.html"><span class="pc-nr">Ankündigungen</span><h3>News</h3><p>Lesungen, Vorträge, Buchtermine und neue Veröffentlichungen auf einen Blick.</p><span class="feed-more">Zu den News →</span></a>
+</div>
 </div>
 </section>
 <!-- ─── FOOTER ─────────────────────────────────────────── -->
