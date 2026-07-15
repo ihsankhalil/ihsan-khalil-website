@@ -7,7 +7,7 @@ window.IDK_CONTENT = {
       kategorie: "Klarheit",
       titel: "Was denken die Leute?",
       teaser: "Wie viel Energie verwenden wir darauf, etwas zu kontrollieren, das sich unserer Kontrolle entzieht?",
-      bild: "portrait-about.jpeg",
+      bild: "images/mission-klarheit.jpg",
       bildAlt: "Ihsan David Khalil im Portrait",
       zitat: "Was andere über dich denken, liegt nicht in deiner Macht. Wie du dein Leben gestaltest, schon.",
       lesedauer: "5 Min.",
