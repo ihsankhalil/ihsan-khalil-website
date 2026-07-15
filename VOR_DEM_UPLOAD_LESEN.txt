@@ -1,0 +1,20 @@
+SPRINT 1 – VOR DEM UPLOAD
+
+Erledigt:
+- Impressum mit Anschrift Strohberg 38, 70180 Stuttgart
+- keine Telefonnummer
+- Datenschutzerklärung für die derzeitige statische Website
+- externe Google-Fonts entfernt; Systemschriftarten eingesetzt
+- SEO-Metadaten, OpenGraph und strukturierte Personendaten
+- robots.txt und sitemap.xml
+- 404-Seite
+- Favicon, App-Icons, Manifest und Social-Preview-Bild
+
+Vor Veröffentlichung noch erforderlich:
+1. Hostinganbieter auswählen. Danach muss dessen Name und Anschrift in datenschutz.html ergänzt werden.
+2. Echte Links für LinkedIn, Instagram, YouTube, Spotify und Apple Podcasts einsetzen oder die leeren Links entfernen.
+3. Newsletter-/Buchvormerkungsfeld ist noch ohne Funktion. Vor Aktivierung Versanddienst und Double-Opt-in einrichten und Datenschutz ergänzen.
+4. Prüfen, ob www.ihsan-khalil.de die endgültige Hauptdomain ist. Falls nicht, Canonical-URL, OpenGraph-URLs, robots.txt und sitemap.xml ändern.
+5. Die Website ausschließlich über HTTPS veröffentlichen.
+
+Hinweis: Die Rechtstexte sind eine auf die aktuelle technische Fassung zugeschnittene Arbeitsgrundlage und keine anwaltliche Einzelfallprüfung.
