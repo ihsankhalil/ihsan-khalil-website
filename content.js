@@ -26,7 +26,7 @@ window.IDK_CONTENT = {
       kategorie: "Minimalismus",
       titel: "Minimalismus beginnt im Kopf",
       teaser: "Reduktion ist nicht Verzicht. Sie ist die bewusste Entscheidung, dem Wesentlichen wieder Raum zu geben.",
-      bild: "images/mission-klarheit.jpg",
+      bild: "portrait-about.jpeg",
       bildAlt: "Mission Klarheit",
       zitat: "Je weniger Komplexität außen, desto mehr Kapazität innen.",
       lesedauer: "4 Min.",
