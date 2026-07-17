@@ -2,9 +2,123 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
-  <title>ZENON CMS</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <title>ZENON CMS · Redaktion</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
 </head>
 <body>
-  <h1>ZENON CMS</h1>
+  <section class="login-screen" id="loginScreen">
+    <div class="login-card">
+      <div class="mark">IK</div>
+      <p class="eyebrow">GESCHÜTZTER BEREICH</p>
+      <h1>ZENON CMS</h1>
+      <p>Redaktion für Gedanken, News, Termine und Buchinhalte.</p>
+      <form id="loginForm">
+        <label>E-Mail<input id="loginEmail" type="email" required autocomplete="username"></label>
+        <label>Passwort<input id="loginPassword" type="password" required autocomplete="current-password"></label>
+        <button class="button primary" type="submit">Anmelden</button>
+        <p class="error" id="loginError"></p>
+      </form>
+    </div>
+  </section>
+
+  <div class="app hidden" id="app">
+    <header class="topbar">
+      <button id="menuBtn" class="icon-btn">☰</button>
+      <div class="brand"><span class="mark small">IK</span><div><b>IHSAN DAVID KHALIL</b><small>ZENON CMS</small></div></div>
+      <div class="top-actions">
+        <span id="userEmail"></span>
+        <button class="button ghost" id="logoutBtn">Abmelden</button>
+      </div>
+    </header>
+
+    <div class="shell">
+      <aside class="sidebar" id="sidebar">
+        <nav>
+          <button class="nav active" data-view="dashboard">Übersicht</button>
+          <button class="nav" data-view="gedanke">Gedanken</button>
+          <button class="nav" data-view="news">News</button>
+          <button class="nav" data-view="termin">Termine</button>
+          <button class="nav" data-view="buch">Buch intern</button>
+          <button class="nav" data-view="medien">Medien</button>
+          <button class="nav" data-view="archiv">Archiv</button>
+        </nav>
+        <button class="button primary full" id="publishBtn">Öffentliche Website aktualisieren</button>
+      </aside>
+
+      <main class="main">
+        <section class="view active" id="dashboardView">
+          <div class="page-head">
+            <div><p class="eyebrow">ÜBERSICHT</p><h1>Guten Tag, Ihsan.</h1><p>Alle Inhalte werden sicher online gespeichert.</p></div>
+            <button class="button primary" data-new="gedanke">+ Neuer Gedanke</button>
+          </div>
+          <div class="quick-grid">
+            <button data-new="gedanke"><span>01</span><b>Gedanke</b><small>Essay oder Denkanstoß</small></button>
+            <button data-new="news"><span>02</span><b>News</b><small>Ankündigung oder Buchmeldung</small></button>
+            <button data-new="termin"><span>03</span><b>Termin</b><small>Lesung oder Vortrag</small></button>
+            <button data-new="buch"><span>04</span><b>Buch intern</b><small>Status und Notizen</small></button>
+          </div>
+          <div class="stats" id="stats"></div>
+          <div class="panel"><div class="panel-head"><h2>Zuletzt bearbeitet</h2></div><div id="recentList"></div></div>
+        </section>
+
+        <section class="view" id="listView">
+          <div class="page-head">
+            <div><p class="eyebrow" id="listEyebrow">INHALTE</p><h1 id="listTitle">Gedanken</h1></div>
+            <button class="button primary" id="newBtn">+ Neu</button>
+          </div>
+          <div class="filters">
+            <input id="search" placeholder="Suchen">
+            <select id="statusFilter"><option value="">Alle Status</option><option>Entwurf</option><option>Geplant</option><option>Veröffentlicht</option><option>Archiviert</option></select>
+          </div>
+          <div class="panel" id="contentList"></div>
+        </section>
+
+        <section class="view" id="editorView">
+          <button class="back" id="backBtn">← Zurück</button>
+          <div class="page-head"><div><p class="eyebrow">REDAKTION</p><h1 id="editorHeading">Neuer Inhalt</h1></div>
+            <div class="actions"><button class="button ghost" id="previewBtn">Vorschau</button><button class="button primary" id="saveBtn">Speichern</button></div>
+          </div>
+          <form id="editorForm" class="editor-grid">
+            <section class="form-card">
+              <label>Titel *<input name="title" required></label>
+              <label>Untertitel<input name="subtitle"></label>
+              <label>Kurzbeschreibung<textarea name="excerpt" rows="4"></textarea></label>
+              <label>Einstiegszitat<textarea name="quote" rows="3"></textarea></label>
+              <label>Inhalt<textarea name="body" rows="20"></textarea></label>
+              <label>Abschlussfrage<input name="closing_question"></label>
+            </section>
+            <aside class="form-card">
+              <label>Typ<select name="type"><option value="gedanke">Gedanke</option><option value="news">News</option><option value="termin">Termin</option><option value="buch">Buch intern</option></select></label>
+              <label>Status<select name="status"><option>Entwurf</option><option>Geplant</option><option>Veröffentlicht</option><option>Archiviert</option></select></label>
+              <label>Veröffentlichung<input name="publish_at" type="datetime-local"></label>
+              <label>Kategorie<input name="category"></label>
+              <label>Schlagwörter<input name="tags" placeholder="Kommagetrennt"></label>
+              <label>Titelbild<select name="image_path" id="imageSelect"><option value="">Kein Bild</option></select></label>
+              <div id="imagePreview" class="image-preview">Kein Bild</div>
+              <label>Ort<input name="location"></label>
+              <label>Link<input name="link" type="url"></label>
+              <label>Interne Notiz<textarea name="internal_note" rows="5"></textarea></label>
+              <button type="button" class="button danger full" id="deleteBtn">Löschen</button>
+            </aside>
+          </form>
+        </section>
+
+        <section class="view" id="mediaView">
+          <div class="page-head"><div><p class="eyebrow">MEDIEN</p><h1>Bilder</h1></div>
+            <label class="button primary">+ Hochladen<input id="mediaInput" type="file" accept="image/*" multiple hidden></label>
+          </div>
+          <div class="media-grid" id="mediaGrid"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <dialog id="previewDialog"><button id="closePreview">×</button><article id="previewArticle"></article></dialog>
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
 </body>
 </html>
