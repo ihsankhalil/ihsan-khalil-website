@@ -28,14 +28,18 @@ jobs:
           node-version: "20"
 
       - name: Öffentliche Inhalte erzeugen
+        working-directory: ${{ github.workspace }}
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           SUPABASE_MEDIA_BUCKET: media
-          OUTPUT_FILE: public-content.js
-        run: node scripts/publish.mjs
+          OUTPUT_FILE: ${{ github.workspace }}/public-content.js
+        run: |
+          echo "Arbeitsverzeichnis: $(pwd)"
+          node scripts/publish.mjs
 
       - name: Änderungen veröffentlichen
+        working-directory: ${{ github.workspace }}
         run: |
           git config user.name "ZENON CMS"
           git config user.email "actions@users.noreply.github.com"
