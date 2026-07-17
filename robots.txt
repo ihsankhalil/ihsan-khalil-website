@@ -1,3 +1,2 @@
 User-agent: *
-Allow: /
-Sitemap: https://ihsan-khalil.de/sitemap.xml
+Disallow: /
