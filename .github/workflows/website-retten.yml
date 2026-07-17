@@ -1,0 +1,38 @@
+name: Öffentliche Website wiederherstellen
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Aktuelles Repository laden
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Öffentliche Website aus vorherigem Stand restaurieren
+        run: |
+          git checkout f356c95 -- index.html app.js config.js styles.css robots.txt
+          rm -f UPLOAD-ANLEITUNG.txt
+
+      - name: Wiederherstellung speichern
+        run: |
+          git config user.name "Website-Rettung"
+          git config user.email "actions@users.noreply.github.com"
+
+          git add index.html app.js config.js styles.css robots.txt
+          git add -u UPLOAD-ANLEITUNG.txt || true
+
+          if git diff --cached --quiet; then
+            echo "Keine Änderungen erforderlich."
+            exit 0
+          fi
+
+          git commit -m "Öffentliche Website wiederhergestellt"
+          git push
