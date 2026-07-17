@@ -1,3 +1,40 @@
+name: ZENON CMS veröffentlichen
+
+on:
+  workflow_dispatch:
+  repository_dispatch:
+    types:
+      - publish-content
+
+permissions:
+  contents: write
+
+concurrency:
+  group: zenon-publishing
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: Repository laden
+        uses: actions/checkout@v4
+
+      - name: Node.js einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Öffentliche Inhalte erzeugen
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          SUPABASE_MEDIA_BUCKET: media
+          OUTPUT_FILE: public-content.js
+        run: node scripts/publish.mjs
+
       - name: Änderungen veröffentlichen
         run: |
           git config user.name "ZENON CMS"
