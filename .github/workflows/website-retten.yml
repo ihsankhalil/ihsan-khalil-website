@@ -11,28 +11,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Aktuelles Repository laden
+      - name: Repository vollständig laden
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Öffentliche Website aus vorherigem Stand restaurieren
-        run: |
-          git checkout f356c95 -- index.html app.js config.js styles.css robots.txt
-          rm -f UPLOAD-ANLEITUNG.txt
-
-      - name: Wiederherstellung speichern
+      - name: Fehlerhaften CMS-Commit zurücknehmen
         run: |
           git config user.name "Website-Rettung"
           git config user.email "actions@users.noreply.github.com"
+          git revert --no-edit 0a5dd38
 
-          git add index.html app.js config.js styles.css robots.txt
-          git add -u UPLOAD-ANLEITUNG.txt || true
-
-          if git diff --cached --quiet; then
-            echo "Keine Änderungen erforderlich."
-            exit 0
-          fi
-
-          git commit -m "Öffentliche Website wiederhergestellt"
-          git push
+      - name: Wiederherstellung veröffentlichen
+        run: git push
