@@ -1,7 +1,7 @@
 /* Automatisch durch ZENON CMS erzeugt. Nicht manuell bearbeiten. */
 window.IDK_CONTENT = {
-  "generatedAt": "2026-07-18T15:02:15.765Z",
-  "count": 3,
+  "generatedAt": "2026-07-18T15:04:33.499Z",
+  "count": 1,
   "items": [
     {
       "id": "d96247da-65f4-4606-aa2c-965efb731527",
@@ -20,45 +20,7 @@ window.IDK_CONTENT = {
       "location": "Stuttgart",
       "link": "",
       "createdAt": "2026-07-17T13:26:20.506193+00:00",
-      "updatedAt": "2026-07-18T15:00:19.321+00:00"
-    },
-    {
-      "id": "656f962d-31a1-4c46-a2a0-cf51ac6fde2f",
-      "type": "gedanke",
-      "title": "Es ist an der Zeit",
-      "subtitle": "sdadas",
-      "excerpt": "sadsadasd",
-      "quote": "sadsad",
-      "body": "asdasdasdasdasdasdasdasdasdasd\nasdasd asdasd asdasdasdasd",
-      "closingQuestion": "sollen wir?",
-      "publishAt": null,
-      "category": "",
-      "tags": [],
-      "imagePath": "1784270592229-du-wirst-dich-nie-a-ndern.-das-hat-dir-jemand-erza-hlt.-es-stimmt-nicht.-5.png",
-      "imageUrl": "https://yqkzamvjvcsvtbjzxevz.supabase.co/storage/v1/object/public/media/1784270592229-du-wirst-dich-nie-a-ndern.-das-hat-dir-jemand-erza-hlt.-es-stimmt-nicht.-5.png",
-      "location": "",
-      "link": "",
-      "createdAt": "2026-07-17T10:26:37.845253+00:00",
-      "updatedAt": "2026-07-17T13:25:58.614+00:00"
-    },
-    {
-      "id": "948bd2ed-fb1e-4dc1-b4be-9db6d4672b3b",
-      "type": "gedanke",
-      "title": "sdasds",
-      "subtitle": "asdasd",
-      "excerpt": "asdsad",
-      "quote": "asdsa",
-      "body": "asds",
-      "closingQuestion": "",
-      "publishAt": null,
-      "category": "",
-      "tags": [],
-      "imagePath": "1784270592229-du-wirst-dich-nie-a-ndern.-das-hat-dir-jemand-erza-hlt.-es-stimmt-nicht.-5.png",
-      "imageUrl": "https://yqkzamvjvcsvtbjzxevz.supabase.co/storage/v1/object/public/media/1784270592229-du-wirst-dich-nie-a-ndern.-das-hat-dir-jemand-erza-hlt.-es-stimmt-nicht.-5.png",
-      "location": "",
-      "link": "",
-      "createdAt": "2026-07-17T07:52:40.867533+00:00",
-      "updatedAt": "2026-07-17T07:52:40.678+00:00"
+      "updatedAt": "2026-07-18T15:03:56.283+00:00"
     }
   ]
 };
