@@ -1,6 +1,6 @@
 /* Automatisch durch ZENON CMS erzeugt. Nicht manuell bearbeiten. */
 window.IDK_CONTENT = {
-  "generatedAt": "2026-07-18T14:59:30.724Z",
+  "generatedAt": "2026-07-18T15:02:15.765Z",
   "count": 3,
   "items": [
     {
@@ -20,7 +20,7 @@ window.IDK_CONTENT = {
       "location": "Stuttgart",
       "link": "",
       "createdAt": "2026-07-17T13:26:20.506193+00:00",
-      "updatedAt": "2026-07-18T14:57:29.562+00:00"
+      "updatedAt": "2026-07-18T15:00:19.321+00:00"
     },
     {
       "id": "656f962d-31a1-4c46-a2a0-cf51ac6fde2f",
