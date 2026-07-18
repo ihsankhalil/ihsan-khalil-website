@@ -9,41 +9,41 @@
   }
 })();
 
-function esc(value) {
-  return String(value || "").replace(/[&<>"]/g, function (character) {
+function escapeHtml(value) {
+  return String(value ?? "").replace(/[&<>"']/g, function (character) {
     return {
       "&": "&amp;",
       "<": "&lt;",
       ">": "&gt;",
-      '"': "&quot;"
+      '"': "&quot;",
+      "'": "&#039;"
     }[character];
   });
 }
 
 function normalizeType(type) {
-  if (type === "gedanken") return "gedanke";
-  return type;
+  const value = String(type || "").toLowerCase();
+
+  if (value === "gedanken") {
+    return "gedanke";
+  }
+
+  return value;
 }
 
-function getItems(type) {
+function getContentItems(type) {
   const normalizedType = normalizeType(type);
   const content = window.IDK_CONTENT || {};
   const items = Array.isArray(content.items) ? content.items : [];
 
   return items
     .filter(function (item) {
-      return item.type === normalizedType;
+      return normalizeType(item.type) === normalizedType;
     })
     .map(function (item) {
-      const date =
-        item.publishAt ||
-        item.createdAt ||
-        item.updatedAt ||
-        new Date().toISOString();
-
       return {
-        id: item.id,
-        type: item.type,
+        id: String(item.id || ""),
+        type: normalizeType(item.type),
         title: item.title || "Ohne Titel",
         subtitle: item.subtitle || "",
         excerpt: item.excerpt || "",
@@ -55,21 +55,38 @@ function getItems(type) {
           (normalizedType === "gedanke" ? "Gedanke" : "News"),
         tags: Array.isArray(item.tags) ? item.tags : [],
         imageUrl: item.imageUrl || "",
+        imagePath: item.imagePath || "",
         location: item.location || "",
         link: item.link || "",
-        date: date
+        publishAt: item.publishAt || null,
+        createdAt: item.createdAt || null,
+        updatedAt: item.updatedAt || null,
+        date:
+          item.publishAt ||
+          item.createdAt ||
+          item.updatedAt ||
+          null
       };
     })
     .sort(function (a, b) {
-      return new Date(b.date) - new Date(a.date);
+      return getTimestamp(b.date) - getTimestamp(a.date);
     });
 }
 
+function getTimestamp(value) {
+  const date = new Date(value || 0);
+  return Number.isNaN(date.getTime()) ? 0 : date.getTime();
+}
+
 function formatDate(value) {
+  if (!value) {
+    return "Ohne Datum";
+  }
+
   const date = new Date(value);
 
   if (Number.isNaN(date.getTime())) {
-    return "";
+    return "Ohne Datum";
   }
 
   return new Intl.DateTimeFormat("de-DE", {
@@ -80,49 +97,71 @@ function formatDate(value) {
 }
 
 function getYear(value) {
+  if (!value) {
+    return "Ohne Datum";
+  }
+
   const date = new Date(value);
 
   if (Number.isNaN(date.getTime())) {
-    return "";
+    return "Ohne Datum";
   }
 
   return String(date.getFullYear());
 }
 
+function createExcerpt(body) {
+  const text = String(body || "")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (text.length <= 180) {
+    return text;
+  }
+
+  return text.slice(0, 177).trim() + " …";
+}
+
 function renderArchive(type) {
   const normalizedType = normalizeType(type);
-  const allItems = getItems(normalizedType);
+  const items = getContentItems(normalizedType);
 
   const search = document.getElementById("search");
   const year = document.getElementById("year");
   const category = document.getElementById("category");
-  const root = document.getElementById("archive");
+  const archive = document.getElementById("archive");
   const empty = document.getElementById("empty");
 
-  if (!search || !year || !category || !root || !empty) {
+  if (!search || !year || !category || !archive || !empty) {
     return;
   }
 
   const years = [
     ...new Set(
-      allItems
+      items
         .map(function (item) {
           return getYear(item.date);
         })
-        .filter(Boolean)
+        .filter(function (value) {
+          return value !== "Ohne Datum";
+        })
     )
   ].sort().reverse();
 
   years.forEach(function (value) {
     year.insertAdjacentHTML(
       "beforeend",
-      '<option value="' + esc(value) + '">' + esc(value) + "</option>"
+      '<option value="' +
+        escapeHtml(value) +
+        '">' +
+        escapeHtml(value) +
+        "</option>"
     );
   });
 
   const categories = [
     ...new Set(
-      allItems
+      items
         .map(function (item) {
           return item.category;
         })
@@ -133,7 +172,11 @@ function renderArchive(type) {
   categories.forEach(function (value) {
     category.insertAdjacentHTML(
       "beforeend",
-      '<option value="' + esc(value) + '">' + esc(value) + "</option>"
+      '<option value="' +
+        escapeHtml(value) +
+        '">' +
+        escapeHtml(value) +
+        "</option>"
     );
   });
 
@@ -142,20 +185,21 @@ function renderArchive(type) {
     const selectedYear = year.value;
     const selectedCategory = category.value;
 
-    const filteredItems = allItems.filter(function (item) {
+    const filteredItems = items.filter(function (item) {
       const searchableText = [
         item.title,
         item.subtitle,
         item.excerpt,
-        item.category,
         item.body,
+        item.quote,
+        item.category,
         item.tags.join(" ")
       ]
         .join(" ")
         .toLowerCase();
 
-      const matchesSearch =
-        !query || searchableText.includes(query);
+      const matchesQuery =
+        query === "" || searchableText.includes(query);
 
       const matchesYear =
         selectedYear === "all" ||
@@ -165,13 +209,13 @@ function renderArchive(type) {
         selectedCategory === "all" ||
         item.category === selectedCategory;
 
-      return matchesSearch && matchesYear && matchesCategory;
+      return matchesQuery && matchesYear && matchesCategory;
     });
 
     const groups = {};
 
     filteredItems.forEach(function (item) {
-      const itemYear = getYear(item.date) || "Ohne Datum";
+      const itemYear = getYear(item.date);
 
       if (!groups[itemYear]) {
         groups[itemYear] = [];
@@ -180,7 +224,7 @@ function renderArchive(type) {
       groups[itemYear].push(item);
     });
 
-    root.innerHTML = "";
+    archive.innerHTML = "";
 
     Object.keys(groups)
       .sort()
@@ -192,10 +236,10 @@ function renderArchive(type) {
           })
           .join("");
 
-        root.insertAdjacentHTML(
+        archive.insertAdjacentHTML(
           "beforeend",
           '<h2 class="archive-title">' +
-            esc(groupYear) +
+            escapeHtml(groupYear) +
             '</h2><div class="grid">' +
             cards +
             "</div>"
@@ -219,40 +263,44 @@ function createCard(item, type) {
   const url =
     detailPage + "?id=" + encodeURIComponent(item.id);
 
-  const image = item.imageUrl
+  const imageHtml = item.imageUrl
     ? '<a class="card-image" href="' +
       url +
-      '"><img src="' +
-      esc(item.imageUrl) +
+      '">' +
+      '<img src="' +
+      escapeHtml(item.imageUrl) +
       '" alt="' +
-      esc(item.title) +
-      '" loading="lazy"></a>'
+      escapeHtml(item.title) +
+      '" loading="lazy">' +
+      "</a>"
     : "";
 
-  const excerpt =
+  const teaser =
     item.excerpt ||
     item.subtitle ||
     createExcerpt(item.body);
 
   return (
     '<article class="card">' +
-      image +
+      imageHtml +
       '<div class="card-body">' +
         '<div class="meta">' +
           "<span>" +
-            esc(formatDate(item.date)) +
+            escapeHtml(formatDate(item.date)) +
           "</span>" +
           '<span class="tag">' +
-            esc(item.category) +
+            escapeHtml(item.category) +
           "</span>" +
         "</div>" +
-        "<h2><a href=\"" +
-          url +
-          "\">" +
-          esc(item.title) +
-        "</a></h2>" +
+        "<h2>" +
+          '<a href="' +
+            url +
+            '">' +
+            escapeHtml(item.title) +
+          "</a>" +
+        "</h2>" +
         "<p>" +
-          esc(excerpt) +
+          escapeHtml(teaser) +
         "</p>" +
         '<a class="more" href="' +
           url +
@@ -262,28 +310,21 @@ function createCard(item, type) {
   );
 }
 
-function createExcerpt(body) {
-  const plainText = String(body || "")
-    .replace(/\s+/g, " ")
-    .trim();
-
-  if (plainText.length <= 180) {
-    return plainText;
-  }
-
-  return plainText.slice(0, 177).trim() + " …";
-}
-
 function renderDetail(type) {
   const normalizedType = normalizeType(type);
-  const id = new URLSearchParams(window.location.search).get("id");
-  const item = getItems(normalizedType).find(function (entry) {
-    return entry.id === id;
+  const parameters = new URLSearchParams(window.location.search);
+  const requestedId = String(parameters.get("id") || "");
+
+  const items = getContentItems(normalizedType);
+
+  const item = items.find(function (entry) {
+    return String(entry.id) === requestedId;
   });
 
   const root = document.getElementById("detail");
 
   if (!root) {
+    console.error('Element mit id="detail" wurde nicht gefunden.');
     return;
   }
 
@@ -293,6 +334,13 @@ function renderDetail(type) {
       : "news.html";
 
   if (!item) {
+    console.error("Eintrag nicht gefunden.", {
+      requestedId: requestedId,
+      availableIds: items.map(function (entry) {
+        return entry.id;
+      })
+    });
+
     root.innerHTML =
       '<section class="article-head">' +
         '<div class="container-narrow">' +
@@ -316,28 +364,36 @@ function renderDetail(type) {
     })
     .filter(Boolean)
     .map(function (paragraph) {
-      return "<p>" + esc(paragraph) + "</p>";
+      return "<p>" + escapeHtml(paragraph) + "</p>";
     })
     .join("");
 
-  const image = item.imageUrl
-    ? '<figure class="hero-image"><img src="' +
-      esc(item.imageUrl) +
-      '" alt="' +
-      esc(item.title) +
-      '"></figure>'
+  const imageHtml = item.imageUrl
+    ? '<figure class="hero-image">' +
+        '<img src="' +
+          escapeHtml(item.imageUrl) +
+          '" alt="' +
+          escapeHtml(item.title) +
+        '">' +
+      "</figure>"
     : "";
 
-  const quote = item.quote
+  const quoteHtml = item.quote
     ? '<blockquote class="article-quote">' +
-      esc(item.quote) +
+        escapeHtml(item.quote) +
       "</blockquote>"
     : "";
 
-  const closingQuestion = item.closingQuestion
+  const questionHtml = item.closingQuestion
     ? '<div class="closing-question">' +
-      esc(item.closingQuestion) +
+        escapeHtml(item.closingQuestion) +
       "</div>"
+    : "";
+
+  const subtitleHtml = item.subtitle
+    ? '<p class="lead">' +
+        escapeHtml(item.subtitle) +
+      "</p>"
     : "";
 
   root.innerHTML =
@@ -345,28 +401,24 @@ function renderDetail(type) {
       '<header class="article-head">' +
         '<div class="container-narrow">' +
           '<span class="eyebrow">' +
-            esc(item.category) +
+            escapeHtml(item.category) +
           "</span>" +
           '<div class="article-meta">' +
-            esc(formatDate(item.date)) +
+            escapeHtml(formatDate(item.date)) +
           "</div>" +
           "<h1>" +
-            esc(item.title) +
+            escapeHtml(item.title) +
           "</h1>" +
-          (item.subtitle
-            ? '<p class="lead">' +
-              esc(item.subtitle) +
-              "</p>"
-            : "") +
+          subtitleHtml +
         "</div>" +
       "</header>" +
-      image +
+      imageHtml +
       '<div class="container-narrow">' +
-        quote +
+        quoteHtml +
         '<div class="article-body">' +
           paragraphs +
         "</div>" +
-        closingQuestion +
+        questionHtml +
         '<a class="back" href="' +
           overviewPage +
           '">← Zur Übersicht</a>' +
