@@ -1,6 +1,6 @@
 /* Automatisch durch ZENON CMS erzeugt. Nicht manuell bearbeiten. */
 window.IDK_CONTENT = {
-  "generatedAt": "2026-07-18T16:02:05.342Z",
+  "generatedAt": "2026-07-20T15:26:27.477Z",
   "count": 1,
   "items": [
     {
@@ -15,12 +15,12 @@ window.IDK_CONTENT = {
       "publishAt": null,
       "category": "Impuls",
       "tags": [],
-      "imagePath": "1784270592229-du-wirst-dich-nie-a-ndern.-das-hat-dir-jemand-erza-hlt.-es-stimmt-nicht.-5.png",
-      "imageUrl": "https://yqkzamvjvcsvtbjzxevz.supabase.co/storage/v1/object/public/media/1784270592229-du-wirst-dich-nie-a-ndern.-das-hat-dir-jemand-erza-hlt.-es-stimmt-nicht.-5.png",
+      "imagePath": "1784533171259-noury_workshop.png",
+      "imageUrl": "https://yqkzamvjvcsvtbjzxevz.supabase.co/storage/v1/object/public/media/1784533171259-noury_workshop.png",
       "location": "Stuttgart",
       "link": "",
       "createdAt": "2026-07-17T13:26:20.506193+00:00",
-      "updatedAt": "2026-07-18T15:59:23.846+00:00"
+      "updatedAt": "2026-07-20T15:25:49.183+00:00"
     }
   ]
 };
