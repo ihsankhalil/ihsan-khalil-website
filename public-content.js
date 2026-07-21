@@ -1,6 +1,6 @@
 /* Automatisch durch ZENON CMS erzeugt. Nicht manuell bearbeiten. */
 window.IDK_CONTENT = {
-  "generatedAt": "2026-07-20T15:26:27.477Z",
+  "generatedAt": "2026-07-21T15:56:18.542Z",
   "count": 1,
   "items": [
     {
