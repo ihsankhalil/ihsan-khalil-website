@@ -368,20 +368,20 @@ nav.scrolled { border-color: var(--line); background: rgba(234,227,214,.94); }
 .final-cta { display: flex; gap: 1.75rem; justify-content: center; align-items: center; flex-wrap: wrap; }
 
 /* newsletter */
-.news { margin-top: 3.5rem; max-width: 620px; margin-left: auto; margin-right: auto; }
-.book-signup { text-align:left; }
-.signup-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
-.signup-field { display:grid; gap:.38rem; font-family:var(--mono); font-size:.7rem; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-mut); }
-.signup-field--wide { grid-column:1 / -1; }
-.signup-field input { width:100%; border:1px solid var(--line); background:var(--paper-hi); padding:.9rem 1rem; font-family:var(--sans); font-size:1rem; color:var(--ink); text-transform:none; letter-spacing:0; }
-.signup-field input:focus { outline:2px solid var(--amber); outline-offset:2px; }
-.signup-options { margin-top:1.35rem; padding:1.25rem 1.3rem; border:1px solid var(--line); background:rgba(244,239,229,.62); }
-.signup-options legend { padding:0 .35rem; font-family:var(--mono); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink); }
-.signup-check { display:flex; align-items:flex-start; gap:.65rem; margin:.72rem 0; font-size:.9rem; color:var(--ink-mut); line-height:1.45; }
-.signup-check input { margin-top:.22rem; accent-color:var(--amber); }
-.signup-submit { display:flex; justify-content:center; margin-top:1.4rem; }
-.signup-submit .btn-primary { border:0; cursor:pointer; }
-.news-hint { font-family:var(--mono); font-size:.68rem; color:var(--ink-mut); margin-top:.9rem; text-align:center; }
+.news { margin-top: 3.5rem; max-width: 520px; margin-left: auto; margin-right: auto; }
+.news-row { display: flex; gap: .6rem; border-bottom: 1px solid var(--ink); padding-bottom: .6rem; }
+.news-row input {
+  flex: 1; border: none; background: transparent; font-family: var(--sans);
+  font-size: 1rem; color: var(--ink); padding: .4rem 0;
+}
+.news-row input::placeholder { color: var(--ink-mut); }
+.news-row input:focus { outline: none; }
+.news-row button {
+  border: none; background: transparent; cursor: pointer;
+  font-family: var(--mono); font-size: .78rem; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--amber);
+}
+.news-hint { font-family: var(--mono); font-size: .68rem; color: var(--ink-mut); margin-top: .8rem; }
 
 /* ─── FEED: AKTUELLES & GEDANKEN ─────────────────────── */
 .feed-filters { display: flex; flex-wrap: wrap; gap: .6rem; margin: 2.5rem 0; }
@@ -529,7 +529,7 @@ footer a:hover { color: var(--amber); }
 @media(max-width:680px){.journal-home-grid{grid-template-columns:1fr}}
 
 .footer-brand{display:flex;justify-content:center;align-items:center;gap:.55rem}.footer-brand img{width:34px;height:34px}.cookie-settings{display:block;margin:1rem auto 0;border:0;background:transparent;color:var(--paper);font-family:var(--mono);font-size:.7rem;text-decoration:underline;cursor:pointer}.cookie-banner{position:fixed;z-index:250;left:1rem;right:1rem;bottom:1rem;display:none;align-items:center;justify-content:space-between;gap:1.5rem;max-width:960px;margin:0 auto;background:var(--night);color:var(--paper);border:1px solid var(--night-line);padding:1rem 1.15rem;box-shadow:0 14px 45px rgba(0,0,0,.25)}.cookie-copy strong{font-family:var(--mono);font-size:.76rem;letter-spacing:.08em;text-transform:uppercase}.cookie-copy p{font-size:.8rem;color:var(--night-mut);line-height:1.45;margin-top:.2rem}.cookie-actions{display:flex;gap:.55rem;flex-shrink:0}.cookie-actions button{font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;padding:.65rem .85rem;border:1px solid var(--night-line);background:transparent;color:var(--paper);cursor:pointer}.cookie-actions #cookieAccept{background:var(--amber);border-color:var(--amber)}
-@media(max-width:680px){.signup-grid{grid-template-columns:1fr}.signup-field--wide{grid-column:auto}nav{padding:.8rem 1rem}.menu-toggle{display:block}.nav-right{position:absolute;top:100%;left:0;right:0;display:none;flex-direction:column;align-items:stretch;gap:0;background:var(--paper-hi);border-bottom:1px solid var(--line);padding:.5rem 1.2rem 1rem}.nav-right.open{display:flex}.nav-link,.nav-cta{display:block!important;padding:.9rem 0;border-bottom:1px solid var(--line)}.contact-layout{grid-template-columns:1fr;gap:2.5rem}.cookie-banner{left:.5rem;right:.5rem;bottom:.5rem;align-items:stretch;flex-direction:column}.cookie-actions{width:100%}.cookie-actions button{flex:1}}
+@media(max-width:680px){nav{padding:.8rem 1rem}.menu-toggle{display:block}.nav-right{position:absolute;top:100%;left:0;right:0;display:none;flex-direction:column;align-items:stretch;gap:0;background:var(--paper-hi);border-bottom:1px solid var(--line);padding:.5rem 1.2rem 1rem}.nav-right.open{display:flex}.nav-link,.nav-cta{display:block!important;padding:.9rem 0;border-bottom:1px solid var(--line)}.contact-layout{grid-template-columns:1fr;gap:2.5rem}.cookie-banner{left:.5rem;right:.5rem;bottom:.5rem;align-items:stretch;flex-direction:column}.cookie-actions{width:100%}.cookie-actions button{flex:1}}
 </style>
 
 <link href="https://ihsan-khalil.de/" rel="canonical"/>
@@ -542,20 +542,27 @@ footer a:hover { color: var(--amber); }
 <link href="favicon.ico" rel="icon"/>
 <link href="apple-touch-icon.png" rel="apple-touch-icon"/>
 <link href="site.webmanifest" rel="manifest"/>
+<!-- Leadinfo tracking code -->
+<script>
+(function(l,e,a,d,i,n,f,o){if(!l[i]){l.GlobalLeadinfoNamespace=l.GlobalLeadinfoNamespace||[];
+l.GlobalLeadinfoNamespace.push(i);l[i]=function(){(l[i].q=l[i].q||[]).push(arguments)};l[i].t=l[i].t||n;
+l[i].q=l[i].q||[];o=e.createElement(a);f=e.getElementsByTagName(a)[0];o.async=1;o.src=d;f.parentNode.insertBefore(o,f);}
+}(window,document,'script','https://cdn.leadinfo.eu/ping.js','leadinfo','LI-5FD0DEA7F008F'));
+</script>
 </head>
 <body>
 <!-- ─── NAV ─────────────────────────────────────────────── -->
 <nav id="nav">
 <button aria-expanded="false" aria-label="Menü öffnen" class="menu-toggle" type="button"><span></span><span></span><span></span></button><a class="nav-brand" href="#top"><img alt="Logo Ihsan David Khalil" src="idk-logo-orange.svg"/>IHSAN <b>·</b> KHALIL</a>
 <div class="nav-right">
-<a class="nav-link" href="#top">Start</a>
-<a class="nav-link" href="#methode">Zenon-Methode</a>
-<a class="nav-link" href="#buch">Buch</a>
+<a class="nav-link" href="#methode">Methode</a>
+
+
+<a class="nav-link" href="#angebot">Arbeiten mit mir</a>
 <a class="nav-link" href="gedanken.html">Gedanken</a>
 <a class="nav-link" href="news.html">News</a>
-<a class="nav-link" href="#ueber">Über mich</a>
-<a class="nav-cta" href="#kontakt">Kontakt</a>
-</div>
+<a class="nav-cta" href="#buch">Zum Buch</a>
+<a class="nav-link" href="#kontakt">Kontakt</a></div>
 </nav>
 <!-- ─── HERO ────────────────────────────────────────────── -->
 <header class="hero" id="top">
@@ -794,7 +801,7 @@ footer a:hover { color: var(--amber); }
 <div><strong>Noch ein Impuls. Noch ein Seminar.</strong><span>Mehr Input allein verändert keinen Zustand. Der Zustand verändert sich durch einen Prozess.</span></div>
 </li>
 </ul>
-<p class="enemy-close reveal">Glaubenssätze sucht sich niemand bewusst aus. Sie entstehen durch Erziehung, Erfahrungen und unser soziales Umfeld. Sie prägen, wie wir denken, fühlen und handeln. Manche stärken uns. Andere begrenzen uns. Deshalb lohnt es sich, sie bewusst zu hinterfragen und dort zu verändern, wo sie unserer persönlichen Entwicklung im Weg stehen.</b></p>
+<p class="enemy-close reveal">Ich arbeite nicht mit Glaubenssätzen. <b>Ich arbeite mit einem Prozess.</b></p>
 </div>
 </section>
 <!-- ─── ZIELGRUPPE ─────────────────────────────────────── -->
@@ -1002,25 +1009,10 @@ footer a:hover { color: var(--amber); }
 <input name="_subject" type="hidden" value="Buchvormerkung: Gedankenkarussell stoppen"/>
 <input name="_next" type="hidden" value="https://ihsan-khalil.de/danke.html"/>
 <input name="_captcha" type="hidden" value="true"/>
-<input name="_template" type="hidden" value="table"/>
 <input name="_honey" style="display:none" type="text"/>
-<div class="signup-grid">
-<label class="signup-field">Vorname *<input autocomplete="given-name" name="Vorname" required type="text"/></label>
-<label class="signup-field">Nachname *<input autocomplete="family-name" name="Nachname" required type="text"/></label>
-<label class="signup-field signup-field--wide">E-Mail-Adresse *<input autocomplete="email" name="E-Mail-Adresse" required type="email"/></label>
-<label class="signup-field">Unternehmen <span style="text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:.72rem">optional</span><input autocomplete="organization" name="Unternehmen" type="text"/></label>
-<label class="signup-field">Ort <span style="text-transform:none;letter-spacing:0;font-family:var(--sans);font-size:.72rem">optional</span><input autocomplete="address-level2" name="Ort" type="text"/></label>
-</div>
-<fieldset class="signup-options">
-<legend>Ich möchte informiert werden über</legend>
-<label class="signup-check"><input name="Interesse: Buchveröffentlichung" type="checkbox" value="Ja"/><span>Buchveröffentlichung</span></label>
-<label class="signup-check"><input name="Interesse: Lesungen &amp; Veranstaltungen" type="checkbox" value="Ja"/><span>Lesungen &amp; Veranstaltungen</span></label>
-<label class="signup-check"><input name="Interesse: Neue Beiträge &amp; Denkanstöße" type="checkbox" value="Ja"/><span>Neue Beiträge &amp; Denkanstöße</span></label>
-<label class="signup-check"><input name="Interesse: Seminare &amp; Vorträge" type="checkbox" value="Ja"/><span>Seminare &amp; Vorträge</span></label>
-</fieldset>
-<label class="form-consent"><input name="Einwilligung" required type="checkbox" value="Erteilt"/> <span>Ich möchte Informationen rund um das Buch und zukünftige Inhalte per E-Mail erhalten. Eine Abmeldung ist jederzeit möglich. Ich habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen.</span></label>
-<div class="signup-submit"><button class="btn-primary" type="submit">Buch kostenlos vormerken</button></div>
-<p class="news-hint">Alle Themenauswahlen sind freiwillig und nicht vorausgewählt.</p>
+<div class="news-row"><input aria-label="E-Mail-Adresse" name="E-Mail" placeholder="Deine E-Mail-Adresse" required="" type="email"/><button type="submit">Vormerken</button></div>
+<label class="form-consent"><input required="" type="checkbox"/> <span>Ich möchte zum Erscheinen informiert werden und habe die <a href="datenschutz.html">Datenschutzerklärung</a> gelesen.</span></label>
+<p class="news-hint">Kein Newsletter-Lärm. Eine Nachricht zum Launch und gelegentlich ein klarer Gedanke.</p>
 </form>
 </div>
 </section>
