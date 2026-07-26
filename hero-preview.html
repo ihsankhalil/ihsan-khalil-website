@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Hero-Preview mit Video · ihsan-khalil.de</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --paper: #EAE3D6; --paper-hi: #F4EFE5; --paper-lo: #E1D9C9;
+  --ink: #1B1813; --ink-mut: #6E6557;
+  --amber: #C6551A; --amber-dk: #A8460F;
+  --line: #D3CABA;
+  --serif: 'Spectral', Georgia, serif;
+  --sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+
+.eyebrow { font-family: var(--mono); font-size: .72rem; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--amber); display: inline-flex; align-items: center; gap: .8rem; margin-bottom: 1.6rem; }
+.eyebrow::before { content: ''; width: 26px; height: 1px; background: var(--amber); display: block; }
+
+@keyframes breathe { 0%,100%{transform:scaleX(.38);opacity:.55} 50%{transform:scaleX(1);opacity:1} }
+
+/* HERO – umgebaut auf 2-Spalten mit Video */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 8rem 2rem 4rem;
+  max-width: 1240px; margin: 0 auto;
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  width: 100%;
+}
+.hero h1 {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  line-height: 1.06; letter-spacing: -.02em;
+  margin-bottom: 1.6rem;
+}
+.hero h1 em { font-style: italic; color: var(--amber); }
+.breath-wrap { width: 220px; height: 2px; margin: .4rem 0 2rem; overflow: visible; }
+.breath { width: 100%; height: 2px; background: var(--amber); transform-origin: left center; animation: breathe 7s ease-in-out infinite; }
+.hero-sub { font-size: 1.15rem; color: var(--ink-mut); max-width: 520px; line-height: 1.75; margin-bottom: 2.5rem; }
+.hero-cta { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+.btn-primary { display: inline-block; font-family: var(--sans); font-weight: 500; font-size: .96rem; background: var(--ink); color: var(--paper); padding: 1rem 1.8rem; transition: background .25s, transform .25s; }
+.btn-primary:hover { background: var(--amber); transform: translateY(-2px); }
+.btn-ghost { display: inline-flex; align-items: center; gap: .5rem; font-family: var(--sans); font-size: .96rem; font-weight: 500; color: var(--ink); border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+.btn-ghost::after { content: '→'; transition: transform .2s; }
+.btn-ghost:hover { color: var(--amber); border-color: var(--amber); }
+.btn-ghost:hover::after { transform: translateX(4px); }
+
+.hero-trust { margin-top: 3rem; padding-top: 1.8rem; border-top: 1px solid var(--line); font-family: var(--mono); font-size: .74rem; color: var(--ink-mut); display: flex; flex-wrap: wrap; gap: .6rem 1.4rem; }
+.hero-trust b { color: var(--ink); font-weight: 500; }
+
+/* ─── VIDEO-BLOCK ─── */
+.hero-video {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--ink);
+  cursor: pointer;
+  border: 1px solid var(--line);
+}
+.hero-video-thumb {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: brightness(0.85) saturate(0.95);
+  transition: filter .4s, transform .6s;
+}
+.hero-video:hover .hero-video-thumb { filter: brightness(0.95); transform: scale(1.015); }
+
+.hero-video-play {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 76px; height: 76px; border-radius: 50%;
+  background: var(--paper-hi);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .3s, background .3s;
+  z-index: 2;
+}
+.hero-video:hover .hero-video-play { transform: translate(-50%, -50%) scale(1.08); background: var(--amber); }
+.hero-video-play::before {
+  content: '';
+  width: 0; height: 0;
+  border-left: 22px solid var(--ink);
+  border-top: 14px solid transparent;
+  border-bottom: 14px solid transparent;
+  margin-left: 6px;
+  transition: border-left-color .3s;
+}
+.hero-video:hover .hero-video-play::before { border-left-color: var(--paper-hi); }
+
+.hero-video-caption {
+  position: absolute;
+  bottom: 18px; left: 20px; right: 20px;
+  z-index: 2;
+  display: flex; justify-content: space-between; align-items: baseline;
+  gap: 1rem;
+}
+.hero-video-title {
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  color: var(--paper-hi);
+  font-size: 1.15rem; line-height: 1.2;
+}
+.hero-video-length {
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .1em;
+  color: var(--paper-hi); opacity: .8;
+  white-space: nowrap;
+}
+.hero-video-caption::after {
+  content: '';
+  position: absolute; inset: -60px -20px -18px -20px;
+  background: linear-gradient(to top, rgba(0,0,0,.55), transparent);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.hero-video.is-playing .hero-video-thumb,
+.hero-video.is-playing .hero-video-play,
+.hero-video.is-playing .hero-video-caption { display: none; }
+.hero-video iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+@media (max-width: 900px) {
+  .hero { padding: 6rem 1.4rem 3rem; min-height: auto; }
+  .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-video { max-width: 640px; }
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-grid">
+
+    <!-- Textspalte -->
+    <div class="hero-text">
+      <span class="eyebrow">Die Zenon-Methode · Klarheit unter Druck</span>
+      <h1>Zuerst kommt die Ruhe.<br>Dann die <em>Klarheit</em>.</h1>
+      <div class="breath-wrap"><div class="breath"></div></div>
+      <p class="hero-sub">
+        Ein überlasteter Kopf trifft keine guten Entscheidungen. Die Zenon-Methode setzt
+        zuerst am Nervensystem an. Erst wenn der Körper still wird, wird das Denken klar.
+        Ohne Dogmen. Ohne Gurus. Ohne unbelegte Behauptungen.
+      </p>
+      <div class="hero-cta">
+        <a class="btn-primary" href="#buch">Gedankenkarussell stoppen. Buch vormerken.</a>
+        <a class="btn-ghost" href="#angebot">Erstgespräch anfragen</a>
+      </div>
+      <div class="hero-trust">
+        <span><b>30+ Jahre</b> Unternehmertum</span>
+        <span><b>Seit 2005</b> Hirnforschung</span>
+        <span><b>16</b> Kommunikationspreise</span>
+      </div>
+    </div>
+
+    <!-- Videospalte -->
+    <div
+      class="hero-video"
+      data-video-id="i5yJiPe1bl0"
+      role="button" tabindex="0"
+      aria-label="Video abspielen: Die Zenon-Methode"
+    >
+      <img
+        class="hero-video-thumb"
+        src="https://i.ytimg.com/vi/i5yJiPe1bl0/maxresdefault.jpg"
+        alt=""
+        loading="eager"
+        onerror="this.src='https://i.ytimg.com/vi/i5yJiPe1bl0/hqdefault.jpg'"
+      >
+      <div class="hero-video-play" aria-hidden="true"></div>
+      <div class="hero-video-caption">
+        <span class="hero-video-title">Die Zenon-Methode</span>
+        <span class="hero-video-length">1:21 Min.</span>
+      </div>
+    </div>
+
+  </div>
+</header>
+
+<script>
+(function () {
+  document.querySelectorAll('.hero-video').forEach(function (box) {
+    var play = function () {
+      var id = box.getAttribute('data-video-id');
+      if (!id) return;
+      var iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+      iframe.setAttribute('allow', 'autoplay; encrypted-media; picture-in-picture');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('title', 'Die Zenon-Methode');
+      box.classList.add('is-playing');
+      box.appendChild(iframe);
+    };
+    box.addEventListener('click', play);
+    box.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
